@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Basket.API.Repositiories;
+using Microsoft.OpenApi.Models;
 
 namespace Basket.API
 {
@@ -21,7 +22,7 @@ namespace Basket.API
             });
 
             // General Configuration
-            //services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
             //services.AddAutoMapper(typeof(Startup));
 
             //// Grpc Configuration
