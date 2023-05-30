@@ -1,3 +1,5 @@
+using Discount.API.Extensions;
+
 namespace Discount.API
 {
     public class Program
@@ -5,7 +7,7 @@ namespace Discount.API
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            //host.MigrateDatabase<Program>();
+            host.MigrateDatabase<Program>();
             host.Run();
         }
 
