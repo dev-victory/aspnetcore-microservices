@@ -1,4 +1,6 @@
-﻿using Basket.API.Repositiories;
+﻿using Basket.API.GrpcServices;
+using Basket.API.Repositiories;
+using Discount.Grpc.Protos;
 using Microsoft.OpenApi.Models;
 
 namespace Basket.API
@@ -25,10 +27,10 @@ namespace Basket.API
             services.AddScoped<IBasketRepository, BasketRepository>();
             //services.AddAutoMapper(typeof(Startup));
 
-            //// Grpc Configuration
-            //services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
-            //    (o => o.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]));
-            //services.AddScoped<DiscountGrpcService>();
+            // Grpc Configuration
+            services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
+                (o => o.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]));
+            services.AddScoped<DiscountGrpcService>();
 
             //// MassTransit-RabbitMQ Configuration
             //services.AddMassTransit(config => {
