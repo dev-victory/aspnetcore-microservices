@@ -1,7 +1,6 @@
-﻿//using EventBus.Messages.Common;
-//using MassTransit;
-using Microsoft.OpenApi.Models;
-//using Ordering.API.EventBusConsumer;
+﻿using Microsoft.OpenApi.Models;
+using Ordering.Application;
+using Ordering.Infrastructure;
 
 namespace Ordering.API
 {
@@ -17,8 +16,8 @@ namespace Ordering.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddApplicationServices();
-            //services.AddInfrastructureServices(Configuration);
+            services.AddApplicationServices();
+            services.AddInfrastructureServices(Configuration);
 
             // MassTransit-RabbitMQ Configuration
             //services.AddMassTransit(config => {
