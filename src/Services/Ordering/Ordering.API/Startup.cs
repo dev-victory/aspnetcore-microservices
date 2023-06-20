@@ -1,4 +1,7 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using EventBus.Message.Common;
+using MassTransit;
+using Microsoft.OpenApi.Models;
+using Ordering.API.EventBusConsumer;
 using Ordering.Application;
 using Ordering.Infrastructure;
 
@@ -20,21 +23,22 @@ namespace Ordering.API
             services.AddInfrastructureServices(Configuration);
 
             // MassTransit-RabbitMQ Configuration
-            //services.AddMassTransit(config => {
-            //    config.AddConsumer<BasketCheckoutConsumer>();
-            //    config.UsingRabbitMq((ctx, cfg) => {
-            //        cfg.Host(Configuration["EventBusSettings:HostAddress"]);
-            //        cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
-            //        {
-            //            c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
-            //        });
-            //    });
-            //});
-            //services.AddMassTransitHostedService();
+            services.AddMassTransit(config =>
+            {
+                config.AddConsumer<BasketCheckoutConsumer>();
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
+                    {
+                        c.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+                    });
+                });
+            });
 
             // General Configuration
-            //services.AddAutoMapper(typeof(Startup));
-            //services.AddScoped<BasketCheckoutConsumer>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<BasketCheckoutConsumer>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
