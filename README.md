@@ -20,7 +20,7 @@ An API gateway exposes the relative endpoints for performing API actions like ad
 - **Database per Service:** The `Basket`, `Catalog` and `Ordering` microservices have their own version of the database
 - **Command Query Responsibility Segregation (CQRS):** `Ordering` microservice implements `CQRS` pattern internally
 - **Mediator:** Ordering microservice uses `Mediator` pattern to fire commands and queries from the API controller to the application layer
-- **Event-Driven Architecture:** The `Basket.API` project publishes events using `MassTransit` on `RabbitMQ` instance. Checkout action in `Ordering.API` is subscribed to the checkout fired event which as a result invokes `SendMail` action via the `EmailService`.
+- **Event-Driven Architecture:** The `Basket.API` project publishes an event using `MassTransit` message broker on `RabbitMQ` instance. Checkout action in `Ordering.API` is subscribed to the checkout fired by `Basket.API` which as a result invokes `SendMail` action via the `EmailService`.
 
 The UI part is a simple MVC website that communicates with the API gateway for performing portal operations like displaying and ordering products.
 
